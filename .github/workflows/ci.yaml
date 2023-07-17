@@ -23,7 +23,7 @@ jobs:
           provider: microk8s   
           channel: "1.26-strict/stable"   
           # This is needed until https://bugs.launchpad.net/juju/+bug/1977582 is fixed
-          bootstrap-options: "--agent-version 3.1.5"
+          bootstrap-options: "--agent-version 3.1.2"
           bootstrap-constraints: "cores=2 mem=2G"
           juju-channel: "3.1/stable"  
       - name: Run integration tests

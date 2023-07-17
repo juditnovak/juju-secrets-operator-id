@@ -15,7 +15,7 @@ https://discourse.charmhub.io/t/4208
 import logging
 
 import ops
-from ops import ActiveStatus, SecretNotFoundError
+from ops import ActiveStatus
 from ops.charm import ActionEvent
 
 # Log messages can be retrieved using juju debug-log
@@ -59,21 +59,6 @@ class SecretsTestCharm(ops.CharmBase):
             return {}
 
         return self.peers.data[self.app]
-
-    def get_secrets(self) -> dict[str, str]:
-        """Get the secrets stored in juju secrets backend."""
-        secret_id = self.app_peer_data.get("secret-id")
-
-        if not secret_id:
-            return {}
-
-        try:
-            secret = self.model.get_secret(id=secret_id)
-        except SecretNotFoundError:
-            return {}
-        content = secret.get_content()
-        logger.info(f"Retrieved secret {secret_id} with content {content}")
-        return content
 
     def set_secret(self, key: str, value: str) -> None:
         """Set the secret in the juju secret storage."""

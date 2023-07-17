@@ -53,12 +53,12 @@ async def helper_execute_action(
 async def test_secret_id_label(ops_test: OpsTest):
     """Testing add_secret() return value format
 
-    NOTE: This shouldn't work
+    Passing on Juju 3.1.2, failing on Juju 3.1.5
     """
     secret_data = await helper_execute_action(ops_test, "set-secret", {"key": "key1", "value": "value1"})
     secret_labelled_data = await helper_execute_action(
             ops_test, "set-secret-labelled", {"key": "key2", "value": "value2"}
     )
 
-    assert "//" in secret_labelled_data["secret-id"]
-    assert "//" in secret_data["secret-id"]
+    assert "//" not in secret_labelled_data["secret-id"]
+    assert "//" not in secret_data["secret-id"]
